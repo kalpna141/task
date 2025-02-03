@@ -1,11 +1,9 @@
 import { SubTask } from "../../models/subTaskModel.js";
+
 export const getSubTask = async (req, res) => {
   try {
-    const subtasks = await Subtask.find().populate({
-      path: "task",
-      select: "title status",
-    });
-
+    const { taskId } = req.params;
+    const subtasks = await Subtask.find({ taskId });
     res.status(200).json({
       success: true,
       message: "Subtasks fetched successfully",
